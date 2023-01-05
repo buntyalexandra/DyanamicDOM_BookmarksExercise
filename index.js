@@ -48,6 +48,7 @@ class Bookmark {
     removeBookmarkButton.textContent = "x";
     // append the remove button to the list item
     bookmarkListItem.append(removeBookmarkButton);
+    return bookmarkListItem;
   }
 }
 // one function for the event listener but it executes multiple functions within it
@@ -61,19 +62,16 @@ function addBookmarkToArray() {
     name: nameValue,
   };
   arrayOfBookmarks.push(bookmarkObject);
-  // return arrayOfBookmarks;
   console.log(arrayOfBookmarks);
 }
 // 2. put the bookmarks on the page
-
-//return, to put on the page
 function renderOneBookmark() {
-  // instantiate a bookmark item
-  const bookmarkItem = new Bookmark();
+  // instantiate a bookmark item using the keys 
+  const bookmarkItem = arrayOfBookmarks.map(new Bookmark());
   // render the item
   bookmarkItem.render();
 }
-
+// combine both above functions into one listener function to be executed on click
 function addAndRenderBookmarks() {
   addBookmarkToArray();
   renderOneBookmark();
@@ -82,4 +80,4 @@ function addAndRenderBookmarks() {
 // select our button with the class of "add"
 const addBookmarkButton = document.querySelector(".add");
 // add an event listener to the button
-addBookmarkButton.addEventListener("click", addBookmarkToArray);
+addBookmarkButton.addEventListener("click", addAndRenderBookmarks);
